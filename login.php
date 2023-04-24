@@ -2,10 +2,10 @@
 include 'config.php';
 
 if(!empty($_POST['Submit'])){
-    $pass=hash('md5', $_POST['password']);
+    $pass=hash('sha512', $_POST['password']);
 
     $p = $db->prepare("SELECT username, password FROM users WHERE username=? AND password=?");
-    $p->bind_param('ss', $_POST['username'], $_POST['password']);
+    $p->bind_param('ss', $_POST['username'], $pass);
 
     $p->execute();
     $p->store_result();
